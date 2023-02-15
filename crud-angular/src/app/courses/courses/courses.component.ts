@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 
 import { Course } from '../model/course';
@@ -14,11 +15,13 @@ import { CoursesService } from './../services/courses.service';
 export class CoursesComponent implements OnInit{
 
   courses$: Observable<Course[]>;
-  displayedColumns = ['id', 'name', 'category'];
+  displayedColumns = ['id', 'name', 'category', 'actions'];
 
   constructor(
     private coursesServices: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute
     ) {
     this.courses$ = this.coursesServices.list()
     .pipe(
@@ -37,6 +40,10 @@ export class CoursesComponent implements OnInit{
 
   ngOnInit(): void {
 
+  }
+
+  onAdd() {
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 
 }
