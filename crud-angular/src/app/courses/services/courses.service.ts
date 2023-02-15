@@ -10,7 +10,7 @@ import { Course } from '../model/course';
 })
 export class CoursesService {
 
-  private readonly API = '/assets/courses.json'
+  private readonly API = 'http://localhost:3000/courses'
 
   constructor(
     private httpClient: HttpClient
@@ -22,6 +22,13 @@ export class CoursesService {
       first(),
       delay(1000),
       tap(courses => console.log(courses))
+    );
+  }
+
+  save(course: Course) {
+    return this.httpClient.post<Course>(this.API, course)
+    .pipe(
+      first()
     );
   }
 }
