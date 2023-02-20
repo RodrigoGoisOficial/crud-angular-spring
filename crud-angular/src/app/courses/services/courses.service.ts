@@ -20,7 +20,7 @@ export class CoursesService {
     return this.httpClient.get<Course[]>(this.API)
     .pipe(
       first(),
-      delay(500),
+      delay(0),
       tap(courses => console.log(courses))
     );
   }
@@ -30,7 +30,6 @@ export class CoursesService {
   }
 
   save(course: Partial<Course>) {
-    debugger
     if(course.id) {
       return this.update(course);
     }
